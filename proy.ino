@@ -40,7 +40,24 @@ void loop() {
   delay(10);
   h = dht.readHumidity();
   delay(10);
-
+  
+  //alarm trigger
+  tr = digitalRead(6);
+  
+  if (Serial.available()) {
+    ltr = Serial.read();
+    }
+    
+  //var values
+  Serial.print(tr);
+  Serial.print(" ");
+  Serial.print(t);
+  Serial.print("C ");
+  Serial.print(h);
+  Serial.print("% ");
+  Serial.print(l);
+  Serial.println("LX ");
+  
   //temp flags
   if (t > 40) {
     l1 = 1;
@@ -67,26 +84,7 @@ void loop() {
     l3 = 0;
     digitalWrite(12, LOW);
   }
-  
-  //alarm trigger
-  if (Serial.available()) {
-    ltr = Serial.read();
-    }
     
-  tr = digitalRead(6);
-  delay(10);
-  tr = digitalRead(6);
-  delay(10);
-  //var values
-  Serial.print(tr);
-  Serial.print(" ");
-  Serial.print(t);
-  Serial.print("C ");
-  Serial.print(h);
-  Serial.print("% ");
-  Serial.print(l);
-  Serial.println("LX ");
-  
   if (((l1 == 1) && (l2 == 1) && (l3 == 1)) || tr == 1 || ltr == 'a') {
     digitalWrite(7, HIGH);
   } else {
